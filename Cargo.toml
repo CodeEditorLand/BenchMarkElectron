@@ -8,7 +8,7 @@ anyhow = { version = "1.0.95" }
 chrono = { version = "0.4.39" }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = { version = "1.0" }
-tempfile = { version = "3.16.0" }
+tempfile = { version = "3.17.1" }
 
 [package]
 authors = ["Tauri Programme within The Commons Conservancy"]
