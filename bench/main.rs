@@ -4,8 +4,7 @@
 
 use std::{
 	collections::HashMap,
-	env,
-	fs,
+	env, fs,
 	process::{Command, Stdio},
 };
 
@@ -16,13 +15,13 @@ use utils::root_path;
 
 mod utils;
 
-fn read_json(filename:&str) -> Result<Value> {
+fn read_json(filename: &str) -> Result<Value> {
 	let f = fs::File::open(filename)?;
 
 	Ok(serde_json::from_reader(f)?)
 }
 
-fn write_json(filename:&str, value:&Value) -> Result<()> {
+fn write_json(filename: &str, value: &Value) -> Result<()> {
 	let f = fs::File::create(filename)?;
 
 	serde_json::to_writer(f, value)?;
@@ -32,7 +31,7 @@ fn write_json(filename:&str, value:&Value) -> Result<()> {
 
 /// The list of the examples of the benchmark name, arguments and return code
 #[cfg(target_os = "linux")]
-const EXEC_TIME_BENCHMARKS:&[(&str, &str, Option<i32>)] = &[
+const EXEC_TIME_BENCHMARKS: &[(&str, &str, Option<i32>)] = &[
 	(
 		"electron_hello_world",
 		"apps/hello_world/out/startup-electron-linux-x64/startup-electron",
@@ -51,7 +50,7 @@ const EXEC_TIME_BENCHMARKS:&[(&str, &str, Option<i32>)] = &[
 ];
 
 #[cfg(all(target_os = "macos", target_arch = "x86_64"))]
-const EXEC_TIME_BENCHMARKS:&[(&str, &str, Option<i32>)] = &[
+const EXEC_TIME_BENCHMARKS: &[(&str, &str, Option<i32>)] = &[
 	(
 		"electron_hello_world",
 		"apps/hello_world/out/startup-electron-darwin-x64/startup-electron.app/Contents/MacOS/\
@@ -73,7 +72,7 @@ const EXEC_TIME_BENCHMARKS:&[(&str, &str, Option<i32>)] = &[
 ];
 
 #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
-const EXEC_TIME_BENCHMARKS:&[(&str, &str, Option<i32>)] = &[
+const EXEC_TIME_BENCHMARKS: &[(&str, &str, Option<i32>)] = &[
 	(
 		"electron_hello_world",
 		"apps/hello_world/out/startup-electron-darwin-arm64/startup-electron.app/Contents/MacOS/\
@@ -94,7 +93,7 @@ const EXEC_TIME_BENCHMARKS:&[(&str, &str, Option<i32>)] = &[
 	),
 ];
 
-fn run_strace_benchmarks(new_data:&mut BenchResult) -> Result<()> {
+fn run_strace_benchmarks(new_data: &mut BenchResult) -> Result<()> {
 	use std::io::Read;
 
 	let mut thread_count = HashMap::<String, u64>::new();
@@ -182,7 +181,7 @@ fn get_binary_sizes() -> Result<HashMap<String, u64>> {
 	Ok(sizes)
 }
 
-const RESULT_KEYS:&[&str] = &["mean", "stddev", "user", "system", "min", "max"];
+const RESULT_KEYS: &[&str] = &["mean", "stddev", "user", "system", "min", "max"];
 
 fn run_exec_time() -> Result<HashMap<String, HashMap<String, f64>>> {
 	let benchmark_file = root_path().join("hyperfine_results.json");
@@ -229,13 +228,13 @@ fn run_exec_time() -> Result<HashMap<String, HashMap<String, f64>>> {
 
 #[derive(Default, Serialize, Debug)]
 struct BenchResult {
-	created_at:String,
-	sha1:String,
-	exec_time:HashMap<String, HashMap<String, f64>>,
-	binary_size:HashMap<String, u64>,
-	max_memory:HashMap<String, u64>,
-	thread_count:HashMap<String, u64>,
-	syscall_count:HashMap<String, u64>,
+	created_at: String,
+	sha1: String,
+	exec_time: HashMap<String, HashMap<String, f64>>,
+	binary_size: HashMap<String, u64>,
+	max_memory: HashMap<String, u64>,
+	thread_count: HashMap<String, u64>,
+	syscall_count: HashMap<String, u64>,
 }
 
 fn main() -> Result<()> {
@@ -250,10 +249,10 @@ fn main() -> Result<()> {
 	println!("{:?}", &utils::root_path());
 
 	let mut new_data = BenchResult {
-		created_at:chrono::Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Secs, true),
-		sha1:utils::run_collect(&["git", "rev-parse", "HEAD"]).0.trim().to_string(),
-		exec_time:run_exec_time()?,
-		binary_size:get_binary_sizes()?,
+		created_at: chrono::Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Secs, true),
+		sha1: utils::run_collect(&["git", "rev-parse", "HEAD"]).0.trim().to_string(),
+		exec_time: run_exec_time()?,
+		binary_size: get_binary_sizes()?,
 		..Default::default()
 	};
 
