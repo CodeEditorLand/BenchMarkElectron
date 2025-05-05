@@ -1,46 +1,36 @@
 {
-	"name": "startup-electron",
-	"version": "0.0.1",
-	"private": false,
-	"description": "My Electron application description",
-	"keywords": [
-		"codeeditorland",
-		"land",
-		"playform"
-	],
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/BenchMarkElectron#readme",
-	"bugs": {
-		"url": "HTTPS://GitHub.Com/CodeEditorLand/BenchMarkElectron/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+HTTPS://github.com/CodeEditorLand/BenchMarkElectron.git"
-	},
-	"license": "SEE LICENSE IN LICENSE",
-	"author": {
-		"name": "Source 🖋️ Open 👐🏻",
-		"email": "Source/Open@Editor.Land",
-		"url": "HTTPS://Editor.Land"
-	},
-	"type": "module",
-	"main": "src/index.js",
-	"scripts": {
-		"make": "electron-forge make",
-		"prepublishOnly": "Build 'Source/**/*.ts'",
-		"publish": "electron-forge publish",
-		"start": "electron-forge start"
-	},
-	"config": {
-		"forge": {
-			"packagerConfig": {}
-		}
-	},
-	"dependencies": {},
-	"devDependencies": {
-		"@playform/build": "0.2.3"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"productName": "startup-electron"
+  "name": "startup-electron",
+  "productName": "startup-electron",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "author": {
+    "name": "Antón Molleda",
+    "email": "molant@users.noreply.github.com"
+  },
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {}
+    }
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.2.1",
+    "@electron-forge/maker-deb": "^6.2.1",
+    "@electron-forge/maker-rpm": "^6.2.1",
+    "@electron-forge/maker-squirrel": "^6.2.1",
+    "@electron-forge/maker-zip": "^6.2.1",
+    "electron": "25.1.1"
+  }
 }
